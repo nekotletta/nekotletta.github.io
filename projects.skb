@@ -1,0 +1,42 @@
+(use-modules (skribilo ast)
+             (skribilo engine)
+             (skribilo source lisp)
+             (skribilo index)
+             (skribilo package html-navtabs)
+             (skribilo package web-book2))
+
+
+;;traverse and populate navbar with chapters
+(define (html-tabs n e)
+      (let ((doc-struct (ast-document n)))
+            (map handle
+                  (container-search-down (lambda (n)
+                        (is-markup? n 'chapter))
+                  doc-struct))))
+
+;;override html
+(let ((html (find-engine 'html)))
+      (if (engine? html)
+            (begin
+                  (engine-custom-set! html 'html-navtabs-produce-css? #f)
+
+                  ;;override css
+                  (engine-custom-set! html 'css "styles.css")
+                  ;;add a navbar, based on chapters in the page
+                  (engine-custom-set! html 'html-navtabs html-tabs))))
+
+(document :title [Projects]
+
+(section :class "sidelines-p" :number #f (p [aa]))
+
+(section :class "division" :number #f
+
+(subsection :class "invisible but-p-container" :title [Go back] :number #f :file #f :ident "go-back"
+      (p :class "goback-p" [,(ref :url "f.html" :text [,(color :fg [white] [Go back])])]))
+
+;;chapter :class "chapter-title" :title [,(color :fg [#99c5d6] [About])] :number #f :file #f :ident "about"
+(p :class "indented-p" [Hello!! This section of my page will be focused on talking about projects I have developped.
+ dcieerf gfrg trgtrvkrtvbnfvjfvnvjkbbjv dnf]))
+
+(section :class "inverted-img-p" :number #f (p [aa]))
+)
