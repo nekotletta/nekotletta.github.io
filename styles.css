@@ -107,7 +107,7 @@ div.skribilo-body {
   /* color: inherit !important; */
 }
 
-.chapter-title {
+.chapter-title, .chapter-title-p {
     color: rgb(123, 104, 139) !important;
 }
 
@@ -133,6 +133,7 @@ div.skribilo-body {
 
 
 /* ----------------project page-------------- */
+
 .projects-contents {
   color: blue;
   background-color: rgba(153, 197, 214, 1) !important;

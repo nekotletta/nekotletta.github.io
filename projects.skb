@@ -8,6 +8,7 @@
 
 ;;traverse and populate navbar with chapters
 (define (html-tabs n e)
+
       (let ((doc-struct (ast-document n)))
             (map handle
                   (container-search-down (lambda (n)
@@ -22,21 +23,25 @@
 
                   ;;override css
                   (engine-custom-set! html 'css "styles.css")
+                  (engine-custom-set! html 'title-foreground "blue !important")
+                  
+
                   ;;add a navbar, based on chapters in the page
                   (engine-custom-set! html 'html-navtabs html-tabs))))
 
-(document :title [Projects]
+(document :title "Projects" :ident "project"
+;;:html-tabs-bar ,(color :fg 'red')
 
 (section :class "sidelines-p" :number #f (p [aa]))
 
 (section :class "division" :number #f
 
 (subsection :class "invisible but-p-container" :title [Go back] :number #f :file #f :ident "go-back"
-      (p :class "goback-p" [,(ref :url "f.html" :text [,(color :fg [white] [Go back])])]))
+      (p :class "goback-p" [,(ref :url "main.html" :text [,(color :fg [white] [Go back])])]))
 
-;;chapter :class "chapter-title" :title [,(color :fg [#99c5d6] [About])] :number #f :file #f :ident "about"
+(chapter :title [,(color :fg [#6b99d5] [About])] :number #f :file #f :ident "about"
 (p :class "indented-p" [Hello!! This section of my page will be focused on talking about projects I have developped.
- dcieerf gfrg trgtrvkrtvbnfvjfvnvjkbbjv dnf]))
+ dcieerf gfrg trgtrvkrtvbnfvjfvnvjkbbjv dnf])))
 
 (section :class "inverted-img-p" :number #f (p [aa]))
 )
