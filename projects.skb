@@ -41,26 +41,34 @@
 (subsubsection :class "invisible but-p-container" :title "AA" :number #f :file #f :ident "go-back"
       (p :class "goback-p" [,(ref :url "main.html" :text [,(color :fg [white] [Go back])])]))
 
-
 ;;section wrapper to line everything up vertically
 (section :number #f
 
 (p :class "indented-p" [Hello!! This section of my page will be focused on talking about projects I have developped.
-      All projects I've developped can be found on my ,(github-page [,(color :fg [#305286] [github])]), but I will be highlighting the main ones here.
-      ]))
+      All projects I've developped can be found on my ,(github-page [,(color :fg [#305286] [github])]), 
+      but I will be highlighting the main ones here.]))
 
 (chapter :class "chapter-title" :title [,(color :fg [#6b99d5] [Completed])] :number #f :file #f :ident "finished"
       (section :number #f (p :class "centered-content" [List of projects that I have finished developping.]))
             
       (section :class "projects-contents" :number #f
             (section :class "white-bg" :number #f
-            (subsection  :title "Matricula | 2025" :number #f))
-            (p [caballo])))
+                  (subsection  :title "Matricula | 2025" :number #f))
+            (p [caballo])
+
+            (p :class "hide-text" [a])
+
+            (section :class "white-bg" :number #f
+                  (subsection  :title "Profestocks | 2023" :number #f))
+            (p [caballo 2])
+      ))
             
 (chapter :class "chapter-title" :title [,(color :fg [#6b99d5] [WIP])] :number #f :file #f :ident "wip"
+      (section :number #f (p :class "centered-content" [List of projects that are still being developed.]))
+
       (section :number #f :class "projects-contents"
             (section :class "white-bg" :number #f
-            (subsection  :title "This site | 2026" :number #f))
+                  (subsection  :title "This site | 2026" :number #f))
             (p [aaaa]))))
 
 (section :class "inverted-img-p" :number #f (p [aa]))

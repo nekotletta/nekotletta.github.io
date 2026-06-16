@@ -81,7 +81,7 @@
                   (p [,(ref :url "projects.html" :class "but" :text "Projects")])
                   (p [,(ref :url "h2.html" :class "but" :text "CV")]))
             (section :number #f :class "nextto"
-                  (p [,(ref :url "f2.html" :class "but" :text "Journal")]))))
+                  (p [,(ref :url "journal-main.html" :class "but" :text "Journal")]))))
 
 )
 

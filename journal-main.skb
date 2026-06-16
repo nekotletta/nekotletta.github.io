@@ -1,0 +1,68 @@
+(use-modules (skribilo ast)
+             (skribilo engine)
+             (skribilo source lisp)
+             (skribilo index)
+             (skribilo package html-navtabs)
+             (skribilo package web-book2)
+             (skribilo reader))
+
+
+;;traverse and populate navbar with chapters
+(define (html-tabs n e)
+
+      (let ((doc-struct (ast-document n)))
+            (map handle
+                  (container-search-down (lambda (n)
+                        (is-markup? n 'chapter))
+                  doc-struct))))
+
+;;override html
+(let ((html (find-engine 'html)))
+      (if (engine? html)
+            (begin
+                  (engine-custom-set! html 'html-navtabs-produce-css? #f)
+
+                  ;;override css
+                  (engine-custom-set! html 'css "styles.css")
+                  (engine-custom-set! html 'title-foreground "wheat !important")
+                  
+
+                  ;;add a navbar, based on chapters in the page
+                  (engine-custom-set! html 'html-navtabs html-tabs))))
+
+
+;;was gonna pick the post based on some list / index
+;;but this is not possible since i need to compile everything
+(define (go-to-post html-ref text)
+      (ref :url (string-append "posts/" html-ref) :text text)
+)
+
+(document :title "Journal"
+
+(section :class "sidelines" :text [aaa] :number #f)
+
+(section :class "journal-base" :number #f :text [aa]
+
+(subsubsection :class "invisible but-p-container" :title "AA" :number #f :file #f :ident "go-back"
+      (p :class "goback-p" [,(ref :url "main.html" :text [,(color :fg [white] [Go back])])]))
+
+(chapter :class "chapter-title" :title [,(color :fg [#6b99d5] [Coding])] :number #f :file #f :ident "finished"
+      ;;(section :number #f (p :class "centered-content" [List of projects that I have finished developping.]))
+            
+      (section  :number #f
+            (section :class "white-bg" :number #f
+                  (subsection :number #f (p [,(go-to-post "this-site.html" [This site])])))
+            ;;(p [caballo])
+
+            ;;(p :class "hide-text" [a])
+
+            ;;(section :class "white-bg" :number #f
+                  ;;(subsection  :title "Profestocks | 2023" :number #f))
+            ;;(p [caballo 2])
+      ))
+
+     
+)
+
+(section :class "sidelines" :text [aaa] :number #f)
+)

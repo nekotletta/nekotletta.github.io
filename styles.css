@@ -79,9 +79,10 @@ div.skribilo-body {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
+    text-align: center !important;
 }
 
-.division {
+.division, .journal-base, .journal-note {
     padding: 0 15px !important;
     width: 80% !important;
     max-width: 800px !important;
@@ -110,6 +111,10 @@ div.skribilo-body {
 .invisible {
   display: none !important;
   /* color: inherit !important; */
+}
+
+.hide-text {
+  text-indent: -9999px !important;
 }
 
 .chapter-title, .chapter-title-p {
@@ -182,6 +187,42 @@ div.skribilo-body {
   padding-bottom: 1px !important;
   border-radius: 10px !important;
   color: #4d79b3 !important;
+}
+/* ----------------journal page-------------- */
+.journal-base {
+  background-color: wheat !important;
+  background-image: url("grid3.png") !important;
+  background-repeat: repeat !important;
+}
+
+.journal-note {
+  background-image: url("notepad-2.png") !important;
+  background-size: 100% 100% !important;
+  /* background-size: contain !important; */
+}
+.note-button {
+  margin-right: 7% !important;
+}
+
+.note-text {
+  height: 95% !important;
+  width: 85% !important;
+  margin: auto;
+  align-items: center !important;
+  /* background-color: rgba(153, 197, 214, 0.5); */
+  line-height: 2rem;
+}
+
+.note-area {
+  /* background-color: rgba(106, 171, 201, 0.332) !important; */
+  height: 90vh !important;
+  margin-top: 15% !important;
+  overflow-y: scroll !important;
+  transform: translateY(0) !important;
+}
+
+.align-date {
+  float: right;
 }
 /* ------------------------------------------ */
 
