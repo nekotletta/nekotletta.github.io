@@ -12,7 +12,7 @@
 
 (document :no-tabs #t
 
-:html-title [My experience building this site]
+:html-title [Title Placeholder]
 (section :class "inverted-img-n" :text [aaa] :number #f)
 (section :class "journal-note" :number #f 
 
@@ -26,7 +26,7 @@
             
       (section :number #f :class "note-text"
 
-            (p :class "align-date" [Date Placeholder])
+            (p :class "align-date" [Date Placeholder mm dd, yyyy])
 
             (p :class "hide-text" [a])
             (p :class "hide-text" [a])

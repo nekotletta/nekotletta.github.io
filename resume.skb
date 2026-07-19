@@ -1,0 +1,134 @@
+(use-modules (skribilo ast)
+             (skribilo engine)
+             (skribilo source lisp)
+             (skribilo index)
+             (skribilo package html-navtabs)
+             (skribilo package web-book2))
+
+;;traverse and populate navbar with chapters
+(define (html-tabs n e)
+      (let ((doc-struct (ast-document n)))
+            (map handle
+                  (container-search-down (lambda (n)
+                        (is-markup? n 'chapter))
+                  doc-struct))))
+
+;;override html
+(let ((html (find-engine 'html)))
+      (if (engine? html)
+            (begin
+                  (engine-custom-set! html 'html-navtabs-produce-css? #f)
+
+                  ;;override css
+                  (engine-custom-set! html 'css "styles.css")
+                  ;;add a navbar, based on chapters in the page
+                  (engine-custom-set! html 'html-navtabs html-tabs))))
+
+;;(define (wiki/frontend . body)
+;;     (ref :url "https://en.wikipedia.org/wiki/Front-end_web_development" :text body))
+
+(document  :title  [,(color :fg [black] [Resume])]
+
+:html-title [Resume]
+
+(section :class "sidelines-j" :number #f (p [aa]))
+
+(section :class "division" :number #f
+
+;;(p :class "indented-p" [Welcome! This is a personal project for fun, attempting to build somewhat of a personal website in ,(skr [Skribilo]).
+;;      I decided to use this framework, as I thought it would be very fun to see how much HTML I can get away with doing through ,(wiki/scheme [Scheme]). ])
+
+(subsubsection :class "invisible but-p-container" :title "AA" :number #f :file #f :ident "go-back"
+      (p :class "goback-r" [,(ref :url "main.html" :text [,(color :fg [white] [Go back])])]))
+
+
+(chapter :number #f :title  [,(color :fg [black] [Work Experience])] :ident "workexp" :class "work-type"
+    (section :number #f :class "work-content"
+        (p :class "years" [03/2026 - Present])
+        (section :number #f 
+            (p [,(bold [Deloitte])])
+            (p [Assist with the Oracle ERP Implementation for the Puerto Rico Department of the Treasury.]
+            (itemize (item [Assist in the configuration of the training environment, in Oracle.])
+                  (item [Creation and validation of training material.])
+                  (item [Provision of end-user training for around 8,000 users, both online and in person.]))))
+    )
+
+    (section :number #f :class "work-content"
+        (section :class "years" :number #f
+        (p [08/2024 - 05/2025])
+        (p [Lead Software Engineer]))
+
+        (section :number #f 
+            (p [,(bold [University of Puerto Rico, Division of Continuous Education and Professional Studies])])
+            (p [Designed and developed a full-stack application in the Django framework, intended to combine three legacy platforms into one, 
+            and make the process of registering / enrolling in courses offered by DECEP 90% faster and clearer for users.]
+            (p [Functions realized:])
+                (itemize (item [Managed a team of five engineers.])
+                        (item [In constant communication with stakeholders, always ensuring requirements were met.])
+                        (item [Documented the project in its entirety for maintainability, and to ensure future developers are able to seamlessly contribute to the application.]))
+                
+            (p [Features developed:])
+                  (itemize (item [An intuitive dashboard for administrators that significantly reduces the manual workload by no longer having to look
+                  for information physically on paper, or across multiple platforms, and instead having everything in a digital platform.])
+                        (item [Processing of Excel sheets logic, allowing administrators to simply upload an Excel sheet and have the platform process 
+                        and update the necessary information, as opposed to having to fill everything out by hand.])
+                        (item [An automated emailing service that notifies users about their enrollment process. Administrators have a set of template emails, where each email is associated
+                        with a specific action in the platform. Once the specific action is executed, the email is sent, removing the need to email people manually ever.]))))
+    )
+)
+
+(chapter :number #f :title  [,(color :fg [black] [Projects])] :ident "projects" :class "work-type"
+
+      (section :class "work-content" :number #f
+            (p :class "years" [08/2025 - 10/2025])
+
+      (section :number #f
+            (p [,(bold [Web-baseed enrollment system])])
+            (p [Designed and developed a full-stack web-based (as opposed to terminal-based) enrollment system, with the purpose to showcase how the current system could be improved.])
+            (p [Used Django to build a RESTful API to efficiently render and manage all data coming to and from the React frontend.])
+            (p [Added functionality by:])
+
+            (itemize (item [Making the UX and UI as user-friendly as possible.])
+                        (item [Implementing navigation through buttons, as opossed to having to memorize codes to navigate.])
+                        (item [Implementing a course schedule visualizer, eliminating the need to use additional platforms to see this information.])
+                        (item [Implementing a course searching and bookmarking system. Students can search for and bookmark their most wanted courses. The bookmarked courses are automatically saved, that way students 
+                        can access them very quicly and easily when enrolling, as oposed to having to look for them manually.])
+                        (item [Implementing filters in course search. Students can filter courses based on their preference when looking at courses to enroll in.]))))
+
+      (section :class "work-content" :number #f
+            (p :class "years" [12/2023 - 04/2024])
+
+      (section :number #f
+            (p [,(bold [Professor rating site])])
+            (p [Created a website to rate the professors of University of Puerto Rico, Rio Piedras campus, from scratch in PHP.  Website was built with the explicit intention of improving on the site that was regularly used by 
+            students to look for professors. This website is now used as the default lookup and rating option by all students in campus (about 10,000).])
+            (p [Added key missing features like:])
+
+            (itemize (item [The ability to look for professors by Department, as opposed to having all professors in a single search.])
+                        (item [Ability to search for courses directly. Students can see what professors teach which courses, to ensure they’re rating the correct professor, 
+                        as they can share names. This also allows for an easier time when deciding which classes to enroll.])
+                        (item [Comment threads, with dates. This way students can look for the most recent reviews, as opposed to having to guess if the comment still holds up or not. 
+                        Students can also reply to others’ comments.])
+                        (item [Comments that are matched to a course. Students can comment about a professor’s performance on a specific course. 
+                        Students can also filter comments by the course they are commenting about.]))))
+      )
+
+(chapter :number #f :title  [,(color :fg [black] [Education])] :ident "edu" :class "work-type"
+      (section :class "work-content" :number #f (p :class "years" [2020 - 2025])
+      (section :number #f (p [B.Sc, Computer Science at Universidad de Puerto Rico, Río Piedras])))) 
+
+(chapter :number #f :title  [,(color :fg [black] [Contact])] :ident "contact" :class "work-type"
+      (section :class "work-content" :number #f (p :class "years" [,(color :fg [#0a66c2] [LinkedIn])])
+      (section :number #f (p [,(ref :url "https://www.linkedin.com/in/adriana-hernandez-21083124a/" :text [,(color :fg [#0a66c2] [My LinkedIn page])])])))
+      
+      (section :class "work-content" :number #f (p :class "years" [,(color :fg [#212830] [GitHub])])
+      (section :number #f (p [,(ref :url "https://github.com/nekotletta" :text [,(color :fg [#212830] [My GitHub page])])])))
+
+      (section :class "work-content" :number #f (p :class "years" [,(color :fg [#dd4d41] [Email])])
+      (section :number #f (p [,(ref :url "mailto:adrianahv23@gmail.com" :text [,(color :fg [#dd4d41] [My Email])])])))
+
+))
+
+(section :number #f :class "sidelines-j" [pp])
+
+)

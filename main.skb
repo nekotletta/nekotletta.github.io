@@ -54,12 +54,12 @@
 
 (section :class "division" :number #f
 
-(p :class "indented-p" [Welcome! This is a personal project for fun, attempting to build somewhat of a personal website in ,(skr [Skribilo]).
-      I decided to use this framework, as I thought it would be very fun to see how much HTML I can get away with doing through ,(wiki/scheme [Scheme]). ])
+(p :class "indented-p" [Welcome! This is a personal project for fun, attempting to build somewhat of a personal website in ,(skr [,(color :fg [#4a2f6b] [Skribilo]).])
+      I decided to use this framework, as I thought it would be very fun to see how much HTML I can get away with doing through ,(wiki/scheme [,(color :fg [#4a2f6b] [Scheme]).])])
 
 
 (p :class "indented-p" [Not only that, but I also find it very fun to challenge myself by building this entirely on Scheme, while only have a basic understanding of it.
-      It would also be a very nice change of focus, as I hardly do projects soley focused on ,(wiki/frontend [frontend]).])
+      It would also be a very nice change of focus, as I hardly do projects soley focused on ,(wiki/frontend [,(color :fg [#4a2f6b] [frontend]).])])
 
 ;;technically a button
 ;;(section :class "but" :number #f
@@ -68,19 +68,19 @@
 ;;(section :class "but" :number #f
 ;;(p [,(ref :url "f2.html" :class "but" :text "Okay but can i link another html file?")]))
 
-(chapter :class "chapter-title" :title [About Me] :number #f :file #f :ident "about"
+(chapter :class "chapter-title" :title [,(color :fg [#4a2f6b] [About Me])] :number #f :file #f :ident "about"
       (section :number #f :class "chapter-contents" 
             (p [Hello!! My name is Adriana and I'm a software engineer who is very passionate about building tools to improve ,(wiki/ux [,(color :fg [#5800cd] [a user's experience])]) all throughout. 
                   I usually do ,(wiki/fullstack [,(color :fg [#5800cd]  [full-stack])]) projects, taking as many improvements as possible into consideration when developing them.
                   If there's something that could improve people's lives I'll make it.])
             (p [])))
 
-(chapter :class "chapter-title" :title [Additional content] :number #f :file #f :ident "extra"
+(chapter :class "chapter-title" :title [,(color :fg [#4a2f6b] [Additional Content])] :number #f :file #f :ident "extra"
       (section  :number #f :class "chapter-contents" 
             (p [I have some additional content on my page])
             (section :number #f :class "nextto"
                   (p [,(ref :url "projects.html" :class "but" :text "Projects")])
-                  (p [,(ref :url "journal-main.html" :class "but" :text "CV")]))
+                  (p [,(ref :url "resume.html" :class "but" :text "CV")]))
             (section :number #f :class "nextto"
                   (p [,(ref :url "journal-main.html" :class "but" :text "Journal")]))))
 

@@ -1,0 +1,49 @@
+(use-modules (skribilo engine)
+             (skribilo source lisp))
+
+;;override html
+(let ((html (find-engine 'html)))
+      (if (engine? html)
+            (begin
+                  (engine-custom-set! html 'html-navtabs-produce-css? #f)
+
+                  ;;override css
+                  (engine-custom-set! html 'css "../styles.css"))))
+
+(document :no-tabs #t
+
+:html-title [Title Placeholder]
+(section :class "inverted-img-n" :text [aaa] :number #f)
+(section :class "journal-note" :number #f 
+
+;;(section :number #f (p :class "invisible" [a]))
+
+(section :number #f :class "note-area"
+(subsubsection :class "invisible but-p-container note-button" :title "" :number #f :file #f :ident "go-back"
+      (p :class "goback-n" [,(ref :url "../journal-main.html" :text [,(color :fg [white] [To Journal])])]))
+
+(chapter :title [,(color :fg [black] [Contibuting to this framework])] :number #f :file #f :ident "finished"
+            
+      (section :number #f :class "note-text"
+
+            (p :class "align-date" [July 18, 2026])
+
+            (p :class "hide-text" [a])
+            (p :class "hide-text" [a])
+
+            (p [About a month ago I (indirectly) contributed to this framework. Given that I've been seeing how much HTML I can get away with
+            in framework, naturally I ran into a bug and reported it.])
+            (p [Skribilo has a ,(ref :url "https://www.nongnu.org/skribilo/doc/user-23.html#section2556" :text "table of contents (toc)") object,
+            which I wanted to use. However, I noticed that no matter which styles I used, they would not be reflected. This is because the
+            toc object wasn't reading the :class attribute. I tried to find a solution for this myself, however I gave up and contacted the developers directly.])
+            (p [They noticed it, fixed it, and commited the 
+            ,(ref :url "https://cgit.git.savannah.gnu.org/cgit/skribilo.git/commit/?id=50743241168c81b3d3a5c08356197b7fe720ed10" : text "patch")
+            for it, in which I'm credited for reporting it!!])
+
+            (image :file "../imgs/commit.png")
+
+            (p [That's it, that's the post. Hopefully I can keep exploiting this framework and find more bugs lol])
+
+            (p :class "hide-text" [a])))))
+
+(section :class "sidelines-n" :text [aaa] :number #f))

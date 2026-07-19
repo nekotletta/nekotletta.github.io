@@ -66,7 +66,7 @@
                   ;;(subsection :number #f :title [,(go-to-post "this-site.html" [,(color :fg [#4c2708] [Experience building this site])])]))
 
             (section :class "white-bg" :number #f
-                  (subsection :number #f :title [,(go-to-post "post-template.html" [,(color :fg [#4c2708] [Coding with impostor syndrome])])]))
+                  (subsection :number #f :title [,(go-to-post "contribution.html" [,(color :fg [#4c2708] [Contributing to this framework])])]))
       ))
 
      
