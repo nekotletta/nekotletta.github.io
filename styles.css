@@ -101,12 +101,14 @@ div.skribilo-body {
     width: 10% !important;
 
     text-indent: -9999px !important;
-    background-color: rgba(123, 104, 139, 0.332) !important;
+    background-color: rgba(123, 104, 139, 0.332) !important; 
     background-image: url('imgs/lav.jpeg') !important;
+    /* background-image: none !important;
+    background-color: transparent !important; */
 }
 
 .inverted-img {
-    transform: scaleX(-1) !important;
+    background-image: url('imgs/inv-lav.jpeg') !important;
 }
 
 .invisible {
@@ -171,7 +173,7 @@ div.skribilo-body {
 }
 
 .inverted-img-p {
-  transform: scaleX(-1) !important;
+  background-image: url("imgs/inv-puter.png") !important;
 }
 
 .white-bg, .white-bg-n {
@@ -292,7 +294,8 @@ div.skribilo-ending {
 /* --------------------------------------------- */
 
 @media (max-width: 600px) {
-  .sidelines, .inverted-img, .sidelines-p, .inverted-img-p {
+  .sidelines, .inverted-img, .sidelines-p, .inverted-img-p, .sidelines-n, .inverted-img-n, .sidelines-j {
     background-image: none !important;
+    background-color: transparent !important;
   }
-}
+} 
