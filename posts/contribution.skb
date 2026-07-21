@@ -12,7 +12,7 @@
 
 (document :no-tabs #t
 
-:html-title [Title Placeholder]
+:html-title [Contributing to this framework]
 (section :class "inverted-img-n" :text [aaa] :number #f)
 (section :class "journal-note" :number #f 
 
