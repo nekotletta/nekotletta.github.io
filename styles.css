@@ -286,6 +286,24 @@ div.skribilo-body {
 }
 /* ------------------------------------------ */
 
+.CTW-container {
+  display: flex;
+  flex-direction: column !important;
+  justify-content: center;
+  align-items: center;
+  color: black !important;
+}
+
+.CTW-container strong a {
+  color: rgb(123, 104, 139) !important;
+}
+
+.CTW-nav a {
+  color: rgb(123, 104, 139) !important;
+}
+
+
+
 div.skribilo-ending {
   display: flex;
   justify-content: center;

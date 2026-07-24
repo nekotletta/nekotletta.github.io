@@ -18,9 +18,11 @@
       (if (engine? html)
             (begin
                   (engine-custom-set! html 'html-navtabs-produce-css? #f)
-
+                  (engine-custom-set! html 'javascript? #t)
+                  (engine-custom-set! html 'js "https://aecc-uprrp.github.io/webring/webring.js")
                   ;;override css
                   (engine-custom-set! html 'css "styles.css")
+                  (engine-custom-set! html 'head "<script>showWebring(true);</script>")
                   ;;add a navbar, based on chapters in the page
                   (engine-custom-set! html 'html-navtabs html-tabs))))
 
