@@ -18,7 +18,7 @@
       (if (engine? html)
             (begin
                   (engine-custom-set! html 'html-navtabs-produce-css? #f)
-
+                  (engine-custom-set! html 'head "<meta name='viewport' content='width=device-width, initial-scale=1.0'>")
                   ;;override css
                   (engine-custom-set! html 'css "styles.css")
                   ;;add a navbar, based on chapters in the page

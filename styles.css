@@ -316,4 +316,50 @@ div.skribilo-ending {
     background-image: none !important;
     background-color: transparent !important;
   }
+  
+
+  .division, .journal-base, .note-text {
+      font-size: 13px !important;
+      min-width: 100% !important;
+  }
+
+  .white-bg, .white-bg-n {
+      width: 100% !important;
+      padding: 5px !important;
+      text-align: left !important;
+      font-size: 12px !important;
+  }
+
+  .chapter-title, .chapter-title-p, .chapter {
+      font-size: 18px !important;
+  }
+
+  .nextto {
+      flex-direction: column !important;
+      gap: 5px !important;
+      font-size: 12px !important;
+      align-items: center !important;
+  }
+
+  .CTW-container {
+    display: none !important;
+  }
+
+  h1.skribilo-title {
+      font-size: 20px !important;
+  }
+
+  .but, .goback-p, .goback-n, .goback-j, .goback-r {
+      font-size: 15px !important;
+      padding: 10px !important;
+  }
+
+  .projects-contents, .indented-p, .chapter-contents, p {
+      text-align: left !important;
+  }
+
+  .journal-note {
+      /* background-size: cover !important; */
+      min-width: 100% !important;
+  }
 } 

@@ -19,10 +19,12 @@
             (begin
                   (engine-custom-set! html 'html-navtabs-produce-css? #f)
                   (engine-custom-set! html 'javascript? #t)
-                  (engine-custom-set! html 'js "https://aecc-uprrp.github.io/webring/webring.js")
+                  ;;(engine-custom-set! html 'js "https://aecc-uprrp.github.io/webring/webring.js")
                   ;;override css
                   (engine-custom-set! html 'css "styles.css")
-                  (engine-custom-set! html 'head "<script>showWebring(true);</script>")
+                  (engine-custom-set! html 'head "<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+                  <script src='https://aecc-uprrp.github.io/webring/webring.js'></script>
+                  <script>showWebring(true);</script>")
                   ;;add a navbar, based on chapters in the page
                   (engine-custom-set! html 'html-navtabs html-tabs))))
 
