@@ -1,5 +1,5 @@
 
-.but, .goback-p, .goback-n, .goback-j, .goback-r {
+.but, .goback-p, .goback-n, .goback-j, .goback-r, .note-clicker {
     background-color: #3c245c;
     border-radius: 10px;
     /* text-decoration: none !important; */
@@ -249,8 +249,18 @@ div.skribilo-body {
   float: right;
 }
 
-.goback-n {
+.goback-n, .note-clicker {
   background-color: lightslategray !important;
+}
+
+.note-clicker :hover {
+  cursor: pointer !important;
+}
+
+.restrict-img-sz {
+  max-width: 95% !important;
+  max-height: 95% !important;
+  object-fit: contain !important;
 }
 /* ------------------ resume ---------------- */
 .years {

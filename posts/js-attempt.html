@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>Title Placeholder</title>
+ <style type="text/css">
+  <!--
+  pre { font-family: monospace }
+  tt { font-family: monospace }
+  code { font-family: monospace }
+  p.flushright { text-align: right }
+  p.flushleft { text-align: left }
+  span.sc { font-variant: small-caps }
+  span.sf { font-family: sans-serif }
+  span.skribetitle { font-family: sans-serif; font-weight: bolder; font-size: x-large; }
+  li.skribilo-toc-item::marker { content: attr(skribilo-toc-item-marker) }
+  -->
+ </style>
+<link rel="stylesheet" type="text/css" href="../styles.css">
+<meta name="keywords" content="">
+</head>
+
+<body class="document">
+<div class="skribilo-body">
+<!--  -->
+<div class="inverted-img-n-title" id="section272">
+<h2></h2></div>
+<div class="inverted-img-n">
+</div>
+<!--  -->
+<div class="journal-note-title" id="section332">
+<h2></h2></div>
+<div class="journal-note">
+<!--  -->
+<div class="note-area-title" id="section331">
+<h2></h2></div>
+<div class="note-area">
+<!--  -->
+<div class="invisible but-p-container note-button-title" id="go-back">
+<h4></h4></div>
+<div class="invisible but-p-container note-button">
+<p class="goback-n">
+<a href="../journal-main.html">
+<span class="color" style="color: white;">To Journal</span></a></p></div>
+<!-- Attempting to render JS using only Skribilo -->
+<h1 class="chapter" id="finished" style="text-align: center;">
+ <span class="color" style="color: black;">Attempting to render JS using only Skribilo</span></h1>
+<!--  -->
+<div class="note-text-title" id="section330">
+<h2></h2></div>
+<div class="note-text">
+<p class="align-date">
+July 29, 2026</p><p class="hide-text">
+a</p><p class="hide-text">
+a</p><!--  -->
+<div class="note-clicker-title" id="section282">
+<h2></h2></div>
+<div class="note-clicker">
+<p class="ct-but">
+Click me!</p></div>
+<!--  -->
+<div class="section-title" id="section285">
+<h2></h2></div>
+<div class="section">
+<p class="ct centered-content">
+<strong>Button hasn't been clicked :(</strong></p></div>
+<!--  -->
+<div class="section-title" id="section286">
+<h2></h2></div>
+<div class="section">
+<script>const button = document.querySelector('.ct-but');
+            let amount = 0
+            var clicks = document.querySelector('.ct');
+            button.addEventListener('click', () =>{
+                  amount++;
+                  clicks.innerHTML = `This button has been clicked ${amount} times :3`;
+                  clicks.style.fontWeight = 'bold';
+            });</script></div>
+<p>
+I wanted to see if it was possible to render javascript code without having to use external files.
+            I say without external files, because skribilo provides the functionality to link files through</p><p class="centered-content">
+<span class="color" style="color: blue;">&lt;script src='script.js'&gt;&lt;/script&gt;</span>, </p><p>
+however, that was not good enough for me.</p><p>
+I want to note that while yes, this can be done for entire complicated scripts, that'd be truly insane.
+            Just write the js file and link it like above. This is why I only stuck to a simple clicker for demo purposes.</p><!-- Struggles -->
+<div class="section-title" id="section299">
+<h2>Struggles</h2></div>
+<div class="section">
+<p>
+The biggest problem in getting this to work was definitely getting the opening and closing tags to work
+            (&lt; and &gt;, respectively). This is because these are <a href="https://www.w3schools.com/html/html_entities.asp" class="https">
+reserved characters</a> in HTML, which means that these are safely
+            rendered* when the HTML is compiled.</p><ul class="itemize">
+<li>
+<a name="item294">
+</a>
+* The tags are compiled as &amp;lt; and &amp;gt; , respectively.</li>
+</ul><p>
+Though this is visible as the correct symbols when the page is rendered, this is bad if I'm trying to add a 
+            <span class="color" style="color: blue;">&lt;script&gt;</span> , or <span class="color" style="color: blue;">=&gt;</span> to my page. HTML won't accept &amp;lt;script&amp;gt; as valid.</p></div>
+<!-- TL;DR -->
+<div class="section-title" id="section304">
+<h2>TL;DR</h2></div>
+<div class="section">
+<p>
+<ul class="itemize">
+<li>
+<a name="item300">
+</a>
+Both &lt; and &gt; are special characters in HTML, so they weren't rendered correctly.</li>
+<li>
+<a name="item301">
+</a>
+Needed to write (symbol &quot;lhd&quot;) and (symbol &quot;rhd&quot;) to overwrite the safe rendering 
+                      of the tags in HTML.</li>
+</ul></p></div>
+<!-- The workaround -->
+<div class="section-title" id="section328">
+<h2>The workaround</h2></div>
+<div class="section">
+<p>
+In order to render a script, I need to find a way to overwrite the safe render for the tags.
+            I couldn't symply used (display &quot;&lt;script&gt;&quot;), as yes, it renders the text correctly, but it, however, places it at
+            the beginning of the file, which is does not work.</p><p>
+In looking through <a href="https://www.nongnu.org/skribilo/doc/user.html#Skribilo-User-Manual" class="https">
+Skribilo's documentation</a> ,
+            I realized there's a section on symbols, and special characters. Surely &lt; and &gt; are there, as they are very common <em>symbols</em> in math,
+            and this framework is used to write papers (which can contain lots of formulas).</p><p>
+Bingo! A specific symbol (lhd) exists, specifically to render &lt;. Likewise, rhd exists to render &gt;. 
+            The reference to those (and symbols in general) can found <a href="https://www.nongnu.org/skribilo/doc/user-34.html#symbols" class="https">
+here</a>.
+            I tried it, and not only do the tags render correctly, they render in the correct place within the file, meaning I was able to do this:</p><p class="centered-content">
+<span class="color" style="color: blue;">(symbol &quot;lhd&quot;)(symbol &quot;script&quot;)(symbol &quot;rhd&quot;)</span></p><p>
+After doing this initial &lt;script&gt; rendering, I realized I could put any string inside a <em>symbol</em> tag and it'd render
+            as the string literal, in the correct place (ie not at the very top), so I of course put all the inner javascript code in a &quot;single&quot; symbol tag.</p><p>
+This somewhat worked, but I'd run into the same problem when attempting to render <span class="color" style="color: blue;">=&gt;</span>, as it contained
+            &gt; in it. I thought it'd be a pain to fix, but not really. I simply had split the <em>symbol</em> tag &quot;into two&quot;. It looked something like this:</p><p class="centered-content">
+<img src="code.png" border="0" alt="">
+</p><p class="centered-content">
+<span class="color" style="color: blue;">Yes, I had to attach an image to show the code snippet, otherwise it won't compile, as it's a snippet of the js code.</span></p><p>
+The full code snippet would look like this:</p><p class="centered-content">
+<img class="restrict-img-sz" src="js-clicker.png" border="0" alt="">
+</p><p class="centered-content">
+<span class="color" style="color: blue;">Note: I had to use <em>querySelector</em> becuase I couldn't add an id (or rather :ident) 
+            to the button, or bottom text.</span></p></div>
+<p class="hide-text">
+a</p></div>
+</div>
+</div>
+<!--  -->
+<div class="sidelines-n-title" id="section333">
+<h2></h2></div>
+<div class="sidelines-n">
+</div>
+</div>
+<div class="skribilo-ending">(made with <a href="https://nongnu.org/skribilo/" class="https">
+skribilo</a>)</div>
+</body>
+</html>

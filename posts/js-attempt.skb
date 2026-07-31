@@ -1,0 +1,109 @@
+(use-modules (skribilo engine html)
+             (skribilo engine)
+             (skribilo package eq)
+             ;;(skribilo writer)
+             (skribilo source lisp))
+
+;;override html
+(let ((html (find-engine 'html)))
+      (if (engine? html)
+            (begin
+                  (engine-custom-set! html 'html-navtabs-produce-css? #f)
+                  (engine-custom-set! html 'javascript? #t)
+                  (engine-custom-set! html 'head "<meta name='viewport' content='width=device-width, initial-scale=1.0'>")
+                  
+                  ;;override css
+                  (engine-custom-set! html 'css "../styles.css"))))
+
+(document :no-tabs #t
+
+:html-title [Title Placeholder]
+(section :class "inverted-img-n" :text [aaa] :number #f)
+(section :class "journal-note" :number #f 
+
+;;(section :number #f (p :class "invisible" [a]))
+
+(section :number #f :class "note-area"
+(subsubsection :class "invisible but-p-container note-button" :title "" :number #f :file #f :ident "go-back"
+      (p :class "goback-n" [,(ref :url "../journal-main.html" :text [,(color :fg [white] [To Journal])])]))
+
+(chapter :title [,(color :fg [black] [Attempting to render JS using only Skribilo])] :number #f :file #f :ident "finished"
+            
+      (section :number #f :class "note-text"
+
+            (p :class "align-date" [July 29, 2026])
+
+            (p :class "hide-text" [a])
+            (p :class "hide-text" [a])
+
+            (section :title #f :number #f :class "note-clicker" (p :class "ct-but" [Click me!]))
+
+            (section :title #f :number #f (p :class "ct centered-content" [,(bold [Button hasn't been clicked :(])]))
+
+            (section :number #f
+            (symbol "lhd")(symbol "script")(symbol "rhd")
+            (symbol "const button = document.querySelector('.ct-but');
+            let amount = 0
+            var clicks = document.querySelector('.ct');
+            button.addEventListener('click', () =") [,(symbol "rhd")] (symbol "{
+                  amount++;
+                  clicks.innerHTML = `This button has been clicked ${amount} times :3`;
+                  clicks.style.fontWeight = 'bold';
+            });")
+            (symbol "lhd")(symbol "/script")(symbol "rhd"))
+
+            (p [I wanted to see if it was possible to render javascript code without having to use external files.
+            I say without external files, because skribilo provides the functionality to link files through])
+            (p :class "centered-content" [,(color :fg [blue] [<script src='script.js'></script>]), ])
+            (p [however, that was not good enough for me.])
+
+            (p [I want to note that while yes, this can be done for entire complicated scripts, that'd be truly insane.
+            Just write the js file and link it like above. This is why I only stuck to a simple clicker for demo purposes.])
+
+            (section :number #f :title [Struggles]
+            (p [The biggest problem in getting this to work was definitely getting the opening and closing tags to work
+            (< and >, respectively). This is because these are ,(ref :url "https://www.w3schools.com/html/html_entities.asp" :text "reserved characters") in HTML, which means that these are safely
+            rendered* when the HTML is compiled.])
+            (itemize (item [* The tags are compiled as &lt; and &gt; , respectively.]))
+            
+            (p [Though this is visible as the correct symbols when the page is rendered, this is bad if I'm trying to add a 
+            ,(color :fg [blue] [<script>]) , or ,(color :fg [blue] [=>]) to my page. HTML won't accept &lt;script&gt; as valid.]))
+
+            (section :number #f :title [TL;DR]
+            (p [,(itemize (item [Both < and > are special characters in HTML, so they weren't rendered correctly.])
+                      (item [Needed to write (symbol "lhd") and (symbol "rhd") to overwrite the safe rendering 
+                      of the tags in HTML.]))]
+            ))
+            (section :number #f :title [The workaround]
+            (p [In order to render a script, I need to find a way to overwrite the safe render for the tags.
+            I couldn't symply used (display "<script>"), as yes, it renders the text correctly, but it, however, places it at
+            the beginning of the file, which is does not work.])
+            (p [In looking through ,(ref :url "https://www.nongnu.org/skribilo/doc/user.html#Skribilo-User-Manual" :text "Skribilo's documentation") ,
+            I realized there's a section on symbols, and special characters. Surely < and > are there, as they are very common ,(it [symbols]) in math,
+            and this framework is used to write papers (which can contain lots of formulas).])
+            (p [Bingo! A specific symbol (lhd) exists, specifically to render <. Likewise, rhd exists to render >. 
+            The reference to those (and symbols in general) can found ,(ref :url "https://www.nongnu.org/skribilo/doc/user-34.html#symbols" :text "here").
+            I tried it, and not only do the tags render correctly, they render in the correct place within the file, meaning I was able to do this:])
+            
+            (p :class "centered-content" [,(color :fg [blue] [(symbol "lhd")(symbol "script")(symbol "rhd")])])
+            
+            (p [After doing this initial <script> rendering, I realized I could put any string inside a ,(it [symbol]) tag and it'd render
+            as the string literal, in the correct place (ie not at the very top), so I of course put all the inner javascript code in a "single" symbol tag.])
+            
+            (p [This somewhat worked, but I'd run into the same problem when attempting to render ,(color :fg [blue] [=>]), as it contained
+            > in it. I thought it'd be a pain to fix, but not really. I simply had split the ,(it [symbol]) tag "into two". It looked something like this:])
+
+            (p :class "centered-content" (image :file "../imgs/code.png"))
+            (p :class "centered-content" [,(color :fg [blue] [Yes, I had to attach an image to show the code snippet, otherwise it won't compile, as it's a snippet of the js code.])])
+            
+            (p [The full code snippet would look like this:])
+            
+            (p :class "centered-content" (image :class "restrict-img-sz" :file "../imgs/js-clicker.png"))
+            
+            (p :class "centered-content" [,(color :fg [blue] [Note: I had to use ,(it [querySelector]) becuase I couldn't add an id (or rather :ident) 
+            to the button, or bottom text.])])
+            )
+
+            (p :class "hide-text" [a])))))
+
+(section :class "sidelines-n" :text [aaa] :number #f))

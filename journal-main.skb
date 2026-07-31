@@ -67,6 +67,9 @@
 
             (section :class "white-bg" :number #f
                   (subsection :number #f :title [,(go-to-post "contribution.html" [,(color :fg [#4c2708] [Contributing to this framework])])]))
+
+            (section :class "white-bg" :number #f
+                  (subsection :number #f :title [,(go-to-post "js-attempt.html" [,(color :fg [#4c2708] [Attempting to render JS using only this framework])])]))
       ))
 
      
