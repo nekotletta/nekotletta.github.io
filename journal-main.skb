@@ -55,7 +55,7 @@
             
       (section  :number #f
             (section :class "white-bg" :number #f
-                  (subsection :number #f :title [,(go-to-post "this-site.html" [,(color :fg [#4c2708] [Experience building this site])])]))
+                  (subsection :number #f :title [,(go-to-post "this-site.html" [,(color :fg [#4c2708] [06/18/26 | Experience building this site])])]))
       ))
 
 (chapter :class "chapter-title" :title [,(color :fg [#4c2708] [Coding])] :number #f :file #f :ident "coding"
@@ -63,13 +63,13 @@
             
       (section  :number #f
             ;;(section :class "white-bg" :number #f
-                  ;;(subsection :number #f :title [,(go-to-post "this-site.html" [,(color :fg [#4c2708] [Experience building this site])])]))
+                  ;;(subsection :number #f :title [,(go-to-post "this-site.html" [,(color :fg [#4c2708] [06/18/26 | Experience building this site])])]))
 
             (section :class "white-bg" :number #f
-                  (subsection :number #f :title [,(go-to-post "contribution.html" [,(color :fg [#4c2708] [Contributing to this framework])])]))
+                  (subsection :number #f :title [,(go-to-post "js-attempt.html" [,(color :fg [#4c2708] [07/29/26 | Attempting to render JS using only this framework])])]))
 
             (section :class "white-bg" :number #f
-                  (subsection :number #f :title [,(go-to-post "js-attempt.html" [,(color :fg [#4c2708] [Attempting to render JS using only this framework])])]))
+                  (subsection :number #f :title [,(go-to-post "contribution.html" [,(color :fg [#4c2708] [07/18/26 | Contributing to this framework])])]))
       ))
 
      

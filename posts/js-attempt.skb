@@ -17,7 +17,7 @@
 
 (document :no-tabs #t
 
-:html-title [Title Placeholder]
+:html-title [JS on Skribilo]
 (section :class "inverted-img-n" :text [aaa] :number #f)
 (section :class "journal-note" :number #f 
 
@@ -93,7 +93,7 @@
             (p [This somewhat worked, but I'd run into the same problem when attempting to render ,(color :fg [blue] [=>]), as it contained
             > in it. I thought it'd be a pain to fix, but not really. I simply had split the ,(it [symbol]) tag "into two". It looked something like this:])
 
-            (p :class "centered-content" (image :file "../imgs/code.png"))
+            (p :class "centered-content" (image :class "restrict-img-sz" :file "../imgs/code.png"))
             (p :class "centered-content" [,(color :fg [blue] [Yes, I had to attach an image to show the code snippet, otherwise it won't compile, as it's a snippet of the js code.])])
             
             (p [The full code snippet would look like this:])
