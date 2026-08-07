@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>Another JS attempt</title>
+ <style type="text/css">
+  <!--
+  pre { font-family: monospace }
+  tt { font-family: monospace }
+  code { font-family: monospace }
+  p.flushright { text-align: right }
+  p.flushleft { text-align: left }
+  span.sc { font-variant: small-caps }
+  span.sf { font-family: sans-serif }
+  span.skribetitle { font-family: sans-serif; font-weight: bolder; font-size: x-large; }
+  li.skribilo-toc-item::marker { content: attr(skribilo-toc-item-marker) }
+  -->
+ </style>
+<link rel="stylesheet" type="text/css" href="../styles.css">
+<meta name="keywords" content="">
+</head>
+
+<body class="document">
+<div class="skribilo-body">
+<!--  -->
+<div class="inverted-img-n-title" id="section172">
+<h2></h2></div>
+<div class="inverted-img-n">
+</div>
+<!--  -->
+<div class="journal-note-title" id="section194">
+<h2></h2></div>
+<div class="journal-note">
+<!--  -->
+<div class="note-area-title" id="section193">
+<h2></h2></div>
+<div class="note-area">
+<!--  -->
+<div class="invisible but-p-container note-button-title" id="go-back">
+<h4></h4></div>
+<div class="invisible but-p-container note-button">
+<p class="goback-n">
+<a href="../journal-main.html">
+<span class="color" style="color: white;">To Journal</span></a></p></div>
+<!-- Attempting to render JS using only Skribilo, again -->
+<h1 class="chapter" id="finished" style="text-align: center;">
+ <span class="color" style="color: black;">Attempting to render JS using only Skribilo, again</span></h1>
+<!--  -->
+<div class="note-text-title" id="section192">
+<h2></h2></div>
+<div class="note-text">
+<p class="align-date">
+August 7, 2026</p><p class="hide-text">
+a</p><p class="hide-text">
+a</p><p class="centered-content">
+<strong>What time is it?</strong></p><!--  -->
+<div class="note-clicker-title" id="section184">
+<h2></h2></div>
+<div class="note-clicker">
+<p class="time">
+Click me!</p></div>
+<!--  -->
+<div class="section-title" id="section185">
+<h2></h2></div>
+<div class="section">
+<script>setInterval(()=>{
+                const time = new Date().toLocaleTimeString(); 
+                let timer = document.querySelector('.time');
+                timer.innerHTML = time;
+                console.log(time);
+                }, 100);</script></div>
+<p>
+I just wanted to see if rendering &quot;real time&quot; JS stuff was possible.
+            In hindsight, this should've been my first attempt at JS, as the code for it is simpler.</p><p>
+My next attempt at JS would be to use <span class="color" style="color: blue;">&lt;script src=&quot;file.js&quot;&gt;&lt;/script&gt;</span>,
+            and writing something that's a bit more complex, purely in JS.</p><p>
+This could be a filter (as in filtering by tags, for example). See if it renders and works correctly in this framework.
+            Yes, this is why the posts are all tagged under &quot;Coding&quot; as of today, as I can't really do filtering logic
+            in Skribilo (or rather, I'd be overcomplicating myself.)</p><p>
+Another great third test could be logic so that it automatically orders my journal entries chronologically, 
+            instead of me having to manually position them correctly in the skribilo files before compiling.</p><p class="hide-text">
+a</p></div>
+</div>
+</div>
+<!--  -->
+<div class="sidelines-n-title" id="section195">
+<h2></h2></div>
+<div class="sidelines-n">
+</div>
+</div>
+<div class="skribilo-ending">(made with <a href="https://nongnu.org/skribilo/" class="https">
+skribilo</a>)</div>
+</body>
+</html>

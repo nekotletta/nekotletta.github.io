@@ -1,0 +1,67 @@
+(use-modules (skribilo engine html)
+             (skribilo engine)
+             (skribilo package eq)
+             ;;(skribilo writer)
+             (skribilo source lisp))
+
+;;override html
+(let ((html (find-engine 'html)))
+      (if (engine? html)
+            (begin
+                  (engine-custom-set! html 'html-navtabs-produce-css? #f)
+                  (engine-custom-set! html 'javascript? #t)
+                  (engine-custom-set! html 'head "<meta name='viewport' content='width=device-width, initial-scale=1.0'>")
+                  
+                  ;;override css
+                  (engine-custom-set! html 'css "../styles.css"))))
+
+(document :no-tabs #t
+
+:html-title [Another JS attempt]
+(section :class "inverted-img-n" :text [aaa] :number #f)
+(section :class "journal-note" :number #f 
+
+;;(section :number #f (p :class "invisible" [a]))
+
+(section :number #f :class "note-area"
+(subsubsection :class "invisible but-p-container note-button" :title "" :number #f :file #f :ident "go-back"
+      (p :class "goback-n" [,(ref :url "../journal-main.html" :text [,(color :fg [white] [To Journal])])]))
+
+(chapter :title [,(color :fg [black] [Attempting to render JS using only Skribilo, again])] :number #f :file #f :ident "finished"
+            
+      (section :number #f :class "note-text"
+
+            (p :class "align-date" [August 7, 2026])
+
+            (p :class "hide-text" [a])
+            (p :class "hide-text" [a])
+
+            (p :class "centered-content" [,(bold [What time is it?])])
+
+            (section :title #f :number #f :class "note-clicker" 
+            (p :class "time" [Click me!]))
+
+            (section :number #f
+            (symbol "lhd")(symbol "script")(symbol "rhd")
+            (symbol "setInterval(()=") [,(symbol "rhd")] (symbol "{
+                const time = new Date().toLocaleTimeString(); 
+                let timer = document.querySelector('.time');
+                timer.innerHTML = time;
+                console.log(time);
+                }, 100);")
+            (symbol "lhd")(symbol "/script")(symbol "rhd"))
+
+            (p [I just wanted to see if rendering "real time" JS stuff was possible.
+            In hindsight, this should've been my first attempt at JS, as the code for it is simpler.])
+
+            (p [My next attempt at JS would be to use ,(color :fg [blue] [<script src="file.js"></script>]),
+            and writing something that's a bit more complex, purely in JS.])
+            (p [This could be a filter (as in filtering by tags, for example). See if it renders and works correctly in this framework.
+            Yes, this is why the posts are all tagged under "Coding" as of today, as I can't really do filtering logic
+            in Skribilo (or rather, I'd be overcomplicating myself.)])
+            (p [Another great third test could be logic so that it automatically orders my journal entries chronologically, 
+            instead of me having to manually position them correctly in the skribilo files before compiling.])
+
+            (p :class "hide-text" [a])))))
+
+(section :class "sidelines-n" :text [aaa] :number #f))

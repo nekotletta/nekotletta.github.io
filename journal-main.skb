@@ -66,6 +66,9 @@
                   ;;(subsection :number #f :title [,(go-to-post "this-site.html" [,(color :fg [#4c2708] [06/18/26 | Experience building this site])])]))
 
             (section :class "white-bg" :number #f
+                  (subsection :number #f :title [,(go-to-post "js-att2.html" [,(color :fg [#4c2708] [08/07/26 | Attempting to render JS again])])]))
+
+            (section :class "white-bg" :number #f
                   (subsection :number #f :title [,(go-to-post "js-attempt.html" [,(color :fg [#4c2708] [07/29/26 | Attempting to render JS using only this framework])])]))
 
             (section :class "white-bg" :number #f
