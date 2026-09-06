@@ -1,0 +1,147 @@
+(use-modules (skribilo engine)
+             (skribilo source lisp))
+
+;;override html
+(let ((html (find-engine 'html)))
+      (if (engine? html)
+            (begin
+                  (engine-custom-set! html 'html-navtabs-produce-css? #f)
+                  (engine-custom-set! html 'head "<meta name='viewport' content='width=device-width, initial-scale=1.0'>")
+                  ;;override css
+                  (engine-custom-set! html 'css "../styles.css"))))
+
+(document :no-tabs #t
+
+:html-title [Compiling all .skb files at once]
+(section :class "inverted-img-n" :text [aaa] :number #f)
+(section :class "journal-note" :number #f 
+
+;;(section :number #f (p :class "invisible" [a]))
+
+(section :number #f :class "note-area"
+(subsubsection :class "invisible but-p-container note-button" :title "" :number #f :file #f :ident "go-back"
+      (p :class "goback-n" [,(ref :url "../journal-main.html" :text [,(color :fg [white] [To Journal])])]))
+
+(chapter :title [,(color :fg [black] [Compiling all .skb files at once])] :number #f :file #f :ident "finished"
+            
+      (section :number #f :class "note-text"
+
+            (p :class "align-date" [September 5th, 2026])
+
+            (p :class "hide-text" [a])
+            (p :class "hide-text" [a])
+
+            (p [First off, I apologize if this is being read from a phone. I can't find a way to make the text wrap to work,
+            so you'll have to scroll in the code segments.])
+
+            (p [This site being entirely written in Skribilo, this means that every time I make a change anywhere I need to
+            ,(ref :url "https://en.wikipedia.org/wiki/Compiler" : text "recompile") the file I updated for the changes to
+            be visible in the HTML. This can definitely become tedious, and hard to keep track of (if you have a lot of files
+            with changes), real quick. This is specially true when you realize the command to compile is])
+
+            (p :class "centered-content" [,(color :fg [blue] [skribilo --target=html <skb-file-name>.skb -o <html-file-name>.html])])
+
+            (p [To solve this issue I wrote the following simple program, broken into parts:])
+
+            (subsection :number #f :title [Terminal command and args] 
+                  
+            (frame :width 100.
+            (prog :class "program-text" :mark "##" [
+            import argparse, os, glob
+            from pathlib import path
+
+            parser = argparse.ArgumentParser()
+            parser.add_argument("-path", "--filepath", help="The path to the file you wish to compile from Skribilo to HTML (without .skb)")
+            parser.add_argument("-out", "--outfile", help="Name of the HTML file (if different from the Skribilo file). Ensure same path.")
+            args = parser.parse_args()]))
+
+            (p [In order to run the program, I need 2 optional arguments. Could I have done this without 
+            ,(ref :url "https://docs.python.org/3/library/argparse.html" :text "argparse")? Yes, of course, but I wanted to add the --help
+            flag (as if anyone else is using this), so it was needed.])
+            
+            (p [I decided to give it two optional arguments:
+            ,(itemize (item [-path: Relative path to the file we wish to compile. In case we want to only compile a specific file, as opposed to all of them at once.])
+                      (item [-out: Name of the output file. In case the user wishes to give their compiled HTML file a different name from the Skribilo one.]))]))
+
+            (subsection :number #f :title [Compiling a single file]
+            
+            (frame :width 100.
+            (prog :class "program-text" :mark "##" :line 8 [
+            if args.filepath:
+                  if not os.path.exists(f"{args.filepath}.skb"):
+                        print(f"File {args.filepath}.skb does not exist.")
+                        exit(1)
+                  if args.outfile: ##dif-name
+                        os.system(f"skribilo --target=html {args.filepath}.skb -o {args.outfile}.html")
+                  else: ##same-name
+                        os.system(f"skribilo --target=html {args.filepath}.skb -o {args.filepath}.html")]))
+                        
+            (p [If the user provides the -path then we know we'll compile a specific file only.])
+            (p [First we need to validate that this .skb file actually exists in the specified relative path, otherwise we exit, as we don't want
+            to compile non-existent files.])
+            (p [Once we validate that the file exists, then we can check whether the compiled HTML file will have the same name (,(ref :line "same-name")) as the
+            Skribilo file or not (,(ref :line "dif-name")). In either case, we need to run Skribilo's compiling command, hence the use of 
+            ,(ref :url "https://docs.python.org/3/tutorial/inputoutput.html#formatted-string-literals" :text "formatted strings"), that way
+            we can include the corresponding argument in the command.]))
+
+            (subsection :number #f :title [Compiling all files]
+            
+            (frame :width 100.
+            (prog :class "program-text" :mark "##" :line 16 [
+            else:
+                  files = \[f.resolve() for f in Path(".").rglob("*.skb")\] ##find-all-files
+                  root = os.getcwd() ##save-cwd
+                  for file in files:
+                        try:
+                              os.chdir(file.parent) ##chdir
+                              os.system(f"skribilo --target=html {file.name} -o {file.with_suffix('.html').name}") ##skb-comm
+                        except Exception as e:
+                              print(f"Error occured: {e}, in {file}")
+                        finally:
+                              os.chdir(root) ##reset-cwd]))
+                              
+            (p [Now let's get into the fun part, compiling all Skribilo files at once!])
+            (p [For starters, we need to find all the paths to the .skb files, so that we can compile them one by one later 
+            (,(ref :line "find-all-files")). When we iterate, 
+            we must do two main things:
+            ,(itemize (item [Use ,(ref :url "https://docs.python.org/3/library/pathlib.html#pathlib.Path.resolve" :text "Path.resolve()"), 
+            to turn our relative paths into absolute ones, and avoid issues when iterating.])
+                      (item [Use ,(ref :url "https://docs.python.org/3/library/pathlib.html#pathlib.Path.rglob" :text "Path.rglob()"),
+            to recursively look through subdirectories. In our case, this is necessary, our subdirectory posts/ contains all of the journal
+            entries, and we wish to compile those as well.]))])
+            (p [The other main thing we need to do before we iterate is saving the 
+            ,(ref :url "https://stackoverflow.com/questions/45591428/what-exactly-is-current-working-directory" :text "CWD")
+            (,(ref :line "save-cwd")).
+            We will be changing directories in each iteration, so we will need to always change back to our CWD, to ensure we
+            access the correct path for each individual file. I.e., compile a file that actually exists, and adding the compiled
+            result to the correct place.])
+            (p [Now that we have the paths, and the CWD, we can begin iterating through each .skb file that exists. In making this
+            program, I realized Skribilo has strange behavior with files that contain images (or rather, files that are referenced
+            from a different directory).
+            
+            Let me explain, some of my posts have images in them, giving me a file structure like this:])
+            
+            (p :class "centered-content program-text" [,(itemize :class "program-text" (item [imgs/
+                                                            ,(itemize (item [ref-img.png]))]))
+                                                      ,(itemize :class "program-text" (item [posts/
+                                                            ,(itemize (item [src-post.skb]))]))
+                                                      ,(itemize :class "program-text" (item [script.py]))])
+            
+            (p [It seems like if I have such cases, in which I need to reference a file in a different directory, I must
+            run the Skribilo compiling command from where the main file is (that is, ,(color :fg [blue] [posts/])). If I try to run it, it will
+            throw an error once it attempts to link the image, indicating that it can't find it, despite being correctly linked with its relative path
+            (i.e. ,(color :fg [blue] ["../ref-img.png"])).])
+            
+            (p [Due to this quirk, I had to find a way around it, which is where 
+            ,(ref :url "https://docs.python.org/3/library/os.html#os.chdir" :text "os.chdir") (,(ref :line "chdir")) 
+            comes into play. Every time we encounter a file, we will update our CWD to the .skb file's parent directory (i.e. 
+            ,(color :fg [blue] [posts/])). That way, the posts that may contain images always are compiled and rendered correctly. (,(ref :line "skb-comm")).])
+            
+            (p [Once the current iteration is done, we must reset CWD to our original one, which we saved previously. This will allow us
+            to begin the next iteration from where the script is, (,(ref :line "reset-cwd")), ensuring every file is accessed from the same
+            relative starting point.]))
+
+
+            (p :class "hide-text" [a])))))
+
+(section :class "sidelines-n" :text [aaa] :number #f))

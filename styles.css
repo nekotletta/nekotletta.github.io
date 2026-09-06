@@ -262,6 +262,13 @@ div.skribilo-body {
   max-height: 95% !important;
   object-fit: contain !important;
 }
+
+.program-text {
+  color: blue;
+  overflow-wrap: break-word !important;
+  overflow-x:auto !important;
+  height: auto !important;
+}
 /* ------------------ resume ---------------- */
 .years {
   min-width: 20% !important;
@@ -318,7 +325,9 @@ div.skribilo-ending {
   display: flex;
   justify-content: center;
 }
-
+.itemize {
+  color: inherit !important;
+}
 /* --------------------------------------------- */
 
 @media (max-width: 600px) {

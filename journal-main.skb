@@ -49,6 +49,9 @@
 (p :class "indented-p" [,(color :fg [#4c2708] [Welcome to my journal! I intend to update this journal every once in a while.
                         The posts will be divided based on the main topic in them, but I admit most will be about coding, or development in general.
                         The topics can be found on the navbar at the top, or by scrolling through the site!] )])
+(p [,(color :fg [#4c2708] [You may see me sometimes use some colors in some notes. Here is what they mean:])])
+(itemize (item [,(color :bg [#2e55c3] :fg [white] [rgb(46, 85, 195), or #2e55c3 --> used for any link inside the post. Usually used to reference stuff.])])
+         (item [,(color :bg [blue] :fg [white] [blue, or #0000FF --> used for specific parts of code I may want to highlight.])]))
 
 (chapter :class "chapter-title" :title [,(color :fg [#4c2708] [Pinned])] :number #f :file #f :ident "pinned"
       ;;(section :number #f (p :class "centered-content" [List of projects that I have finished developping.]))
@@ -66,6 +69,9 @@
                   ;;(subsection :number #f :title [,(go-to-post "this-site.html" [,(color :fg [#4c2708] [06/18/26 | Experience building this site])])]))
 
             (section :class "white-bg" :number #f
+                  (subsection :number #f :title [,(go-to-post "compiling.html" [,(color :fg [#4c2708] [09/05/26 | Compiling all .skb files at once])])]))
+
+            (section :class "white-bg" :number #f
                   (subsection :number #f :title [,(go-to-post "js-att2.html" [,(color :fg [#4c2708] [08/07/26 | Attempting to render JS again])])]))
 
             (section :class "white-bg" :number #f
@@ -74,6 +80,8 @@
             (section :class "white-bg" :number #f
                   (subsection :number #f :title [,(go-to-post "contribution.html" [,(color :fg [#4c2708] [07/18/26 | Contributing to this framework])])]))
       ))
+
+      (p :class "hide-text" [a])
 
      
 )

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
+<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<title>Compiling all .skb files at once</title>
+ <style type="text/css">
+  <!--
+  pre { font-family: monospace }
+  tt { font-family: monospace }
+  code { font-family: monospace }
+  p.flushright { text-align: right }
+  p.flushleft { text-align: left }
+  span.sc { font-variant: small-caps }
+  span.sf { font-family: sans-serif }
+  span.skribetitle { font-family: sans-serif; font-weight: bolder; font-size: x-large; }
+  li.skribilo-toc-item::marker { content: attr(skribilo-toc-item-marker) }
+  -->
+ </style>
+<link rel="stylesheet" type="text/css" href="../styles.css">
+<meta name="keywords" content="">
+</head>
+
+<body class="document">
+<div class="skribilo-body">
+<!--  -->
+<div class="inverted-img-n-title" id="section284">
+<h2></h2></div>
+<div class="inverted-img-n">
+</div>
+<!--  -->
+<div class="journal-note-title" id="section377">
+<h2></h2></div>
+<div class="journal-note">
+<!--  -->
+<div class="note-area-title" id="section376">
+<h2></h2></div>
+<div class="note-area">
+<!--  -->
+<div class="invisible but-p-container note-button-title" id="go-back">
+<h4></h4></div>
+<div class="invisible but-p-container note-button">
+<p class="goback-n">
+<a href="../journal-main.html">
+<span class="color" style="color: white;">To Journal</span></a></p></div>
+<!-- Compiling all .skb files at once -->
+<h1 class="chapter" id="finished" style="text-align: center;">
+ <span class="color" style="color: black;">Compiling all .skb files at once</span></h1>
+<!--  -->
+<div class="note-text-title" id="section375">
+<h2></h2></div>
+<div class="note-text">
+<p class="align-date">
+September 5th, 2026</p><p class="hide-text">
+a</p><p class="hide-text">
+a</p><p>
+First off, I apologize if this is being read from a phone. I can't find a way to make the text wrap to work,
+            so you'll have to scroll in the code segments.</p><p>
+This site being entirely written in Skribilo, this means that every time I make a change anywhere I need to
+            <a href="https://en.wikipedia.org/wiki/Compiler" class="https">
+recompile</a> the file I updated for the changes to
+            be visible in the HTML. This can definitely become tedious, and hard to keep track of (if you have a lot of files
+            with changes), real quick. This is specially true when you realize the command to compile is</p><p class="centered-content">
+<span class="color" style="color: blue;">skribilo --target=html &lt;skb-file-name&gt;.skb -o &lt;html-file-name&gt;.html</span></p><p>
+To solve this issue I wrote the following simple program, broken into parts:</p><!-- Terminal command and args -->
+<div class="subsection-title" id="subsection316">
+<h3>Terminal command and args</h3></div>
+<div class="subsection">
+<div class="frame" style="border-style: solid; border-width: 1px; padding: 2px; width: 100%px;">
+<pre class="program-text">
+<a name="&prog-line302"><em>  1: </em>            import argparse, os, glob</a>
+<a name="&prog-line303"><em>  2: </em>            from pathlib import path</a>
+<a name="&prog-line304"><em>  3: </em></a>
+<a name="&prog-line305"><em>  4: </em>            parser = argparse.ArgumentParser()</a>
+<a name="&prog-line306"><em>  5: </em>            parser.add_argument(&quot;-path&quot;, &quot;--filepath&quot;, help=&quot;The path to the file you wish to compile from Skribilo to HTML (without .skb)&quot;)</a>
+<a name="&prog-line307"><em>  6: </em>            parser.add_argument(&quot;-out&quot;, &quot;--outfile&quot;, help=&quot;Name of the HTML file (if different from the Skribilo file). Ensure same path.&quot;)</a>
+<a name="&prog-line308"><em>  7: </em>            args = parser.parse_args()</a>
+</pre>
+</div>
+<p>
+In order to run the program, I need 2 optional arguments. Could I have done this without 
+            <a href="https://docs.python.org/3/library/argparse.html" class="https">
+argparse</a>? Yes, of course, but I wanted to add the --help
+            flag (as if anyone else is using this), so it was needed.</p><p>
+I decided to give it two optional arguments:
+            <ul class="itemize">
+<li>
+<a name="item312">
+</a>
+-path: Relative path to the file we wish to compile. In case we want to only compile a specific file, as opposed to all of them at once.</li>
+<li>
+<a name="item313">
+</a>
+-out: Name of the output file. In case the user wishes to give their compiled HTML file a different name from the Skribilo one.</li>
+</ul></p></div>
+<!-- Compiling a single file -->
+<div class="subsection-title" id="subsection331">
+<h3>Compiling a single file</h3></div>
+<div class="subsection">
+<div class="frame" style="border-style: solid; border-width: 1px; padding: 2px; width: 100%px;">
+<pre class="program-text">
+<a name="&prog-line318"><em>  8: </em>            if args.filepath:</a>
+<a name="&prog-line319"><em>  9: </em>                  if not os.path.exists(f&quot;{args.filepath}.skb&quot;):</a>
+<a name="&prog-line320"><em> 10: </em>                        print(f&quot;File {args.filepath}.skb does not exist.&quot;)</a>
+<a name="&prog-line321"><em> 11: </em>                        exit(1)</a>
+<a name="dif-name"><em> 12: </em>                  if args.outfile: </a>
+<a name="&prog-line323"><em> 13: </em>                        os.system(f&quot;skribilo --target=html {args.filepath}.skb -o {args.outfile}.html&quot;)</a>
+<a name="same-name"><em> 14: </em>                  else: </a>
+<a name="&prog-line325"><em> 15: </em>                        os.system(f&quot;skribilo --target=html {args.filepath}.skb -o {args.filepath}.html&quot;)</a>
+</pre>
+</div>
+<p>
+If the user provides the -path then we know we'll compile a specific file only.</p><p>
+First we need to validate that this .skb file actually exists in the specified relative path, otherwise we exit, as we don't want
+            to compile non-existent files.</p><p>
+Once we validate that the file exists, then we can check whether the compiled HTML file will have the same name (<i>
+<a href="#same-name" class="skribilo-ref">
+14</a></i>) as the
+            Skribilo file or not (<i>
+<a href="#dif-name" class="skribilo-ref">
+12</a></i>). In either case, we need to run Skribilo's compiling command, hence the use of 
+            <a href="https://docs.python.org/3/tutorial/inputoutput.html#formatted-string-literals" class="https">
+formatted strings</a>, that way
+            we can include the corresponding argument in the command.</p></div>
+<!-- Compiling all files -->
+<div class="subsection-title" id="subsection373">
+<h3>Compiling all files</h3></div>
+<div class="subsection">
+<div class="frame" style="border-style: solid; border-width: 1px; padding: 2px; width: 100%px;">
+<pre class="program-text">
+<a name="&prog-line333"><em> 16: </em>            else:</a>
+<a name="find-all-files"><em> 17: </em>                  files = [f.resolve() for f in Path(&quot;.&quot;).rglob(&quot;*.skb&quot;)] </a>
+<a name="save-cwd"><em> 18: </em>                  root = os.getcwd() </a>
+<a name="&prog-line336"><em> 19: </em>                  for file in files:</a>
+<a name="&prog-line337"><em> 20: </em>                        try:</a>
+<a name="chdir"><em> 21: </em>                              os.chdir(file.parent) </a>
+<a name="skb-comm"><em> 22: </em>                              os.system(f&quot;skribilo --target=html {file.name} -o {file.with_suffix('.html').name}&quot;) </a>
+<a name="&prog-line340"><em> 23: </em>                        except Exception as e:</a>
+<a name="&prog-line341"><em> 24: </em>                              print(f&quot;Error occured: {e}, in {file}&quot;)</a>
+<a name="&prog-line342"><em> 25: </em>                        finally:</a>
+<a name="reset-cwd"><em> 26: </em>                              os.chdir(root) </a>
+</pre>
+</div>
+<p>
+Now let's get into the fun part, compiling all Skribilo files at once!</p><p>
+For starters, we need to find all the paths to the .skb files, so that we can compile them one by one later 
+            (<i>
+<a href="#find-all-files" class="skribilo-ref">
+17</a></i>). When we iterate, 
+            we must do two main things:
+            <ul class="itemize">
+<li>
+<a name="item347">
+</a>
+Use <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path.resolve" class="https">
+Path.resolve()</a>, 
+            to turn our relative paths into absolute ones, and avoid issues when iterating.</li>
+<li>
+<a name="item349">
+</a>
+Use <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path.rglob" class="https">
+Path.rglob()</a>,
+            to recursively look through subdirectories. In our case, this is necessary, our subdirectory posts/ contains all of the journal
+            entries, and we wish to compile those as well.</li>
+</ul></p><p>
+The other main thing we need to do before we iterate is saving the 
+            <a href="https://stackoverflow.com/questions/45591428/what-exactly-is-current-working-directory" class="https">
+CWD</a>
+            (<i>
+<a href="#save-cwd" class="skribilo-ref">
+18</a></i>).
+            We will be changing directories in each iteration, so we will need to always change back to our CWD, to ensure we
+            access the correct path for each individual file. I.e., compile a file that actually exists, and adding the compiled
+            result to the correct place.</p><p>
+Now that we have the paths, and the CWD, we can begin iterating through each .skb file that exists. In making this
+            program, I realized Skribilo has strange behavior with files that contain images (or rather, files that are referenced
+            from a different directory).
+            
+            Let me explain, some of my posts have images in them, giving me a file structure like this:</p><p class="centered-content program-text">
+<ul class="program-text">
+<li>
+<a name="item357">
+</a>
+imgs/
+                                                            <ul class="itemize">
+<li>
+<a name="item355">
+</a>
+ref-img.png</li>
+</ul></li>
+</ul>
+                                                      <ul class="program-text">
+<li>
+<a name="item361">
+</a>
+posts/
+                                                            <ul class="itemize">
+<li>
+<a name="item359">
+</a>
+src-post.skb</li>
+</ul></li>
+</ul>
+                                                      <ul class="program-text">
+<li>
+<a name="item363">
+</a>
+script.py</li>
+</ul></p><p>
+It seems like if I have such cases, in which I need to reference a file in a different directory, I must
+            run the Skribilo compiling command from where the main file is (that is, <span class="color" style="color: blue;">posts/</span>). If I try to run it, it will
+            throw an error once it attempts to link the image, indicating that it can't find it, despite being correctly linked with its relative path
+            (i.e. <span class="color" style="color: blue;">&quot;../ref-img.png&quot;</span>).</p><p>
+Due to this quirk, I had to find a way around it, which is where 
+            <a href="https://docs.python.org/3/library/os.html#os.chdir" class="https">
+os.chdir</a> (<i>
+<a href="#chdir" class="skribilo-ref">
+21</a></i>) 
+            comes into play. Every time we encounter a file, we will update our CWD to the .skb file's parent directory (i.e. 
+            <span class="color" style="color: blue;">posts/</span>). That way, the posts that may contain images always are compiled and rendered correctly. (<i>
+<a href="#skb-comm" class="skribilo-ref">
+22</a></i>).</p><p>
+Once the current iteration is done, we must reset CWD to our original one, which we saved previously. This will allow us
+            to begin the next iteration from where the script is, (<i>
+<a href="#reset-cwd" class="skribilo-ref">
+26</a></i>), ensuring every file is accessed from the same
+            relative starting point.</p></div>
+<p class="hide-text">
+a</p></div>
+</div>
+</div>
+<!--  -->
+<div class="sidelines-n-title" id="section378">
+<h2></h2></div>
+<div class="sidelines-n">
+</div>
+</div>
+<div class="skribilo-ending">(made with <a href="https://nongnu.org/skribilo/" class="https">
+skribilo</a>)</div>
+</body>
+</html>
