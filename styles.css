@@ -328,6 +328,13 @@ div.skribilo-ending {
 .itemize {
   color: inherit !important;
 }
+
+.test {
+  background-image: url("imgs/hair.jpg") !important;
+  height: calc(30 * 96px) !important;
+  width: 90% !important;
+  text-indent: -9999px !important;
+}
 /* --------------------------------------------- */
 
 @media (max-width: 600px) {

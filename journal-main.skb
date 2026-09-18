@@ -33,9 +33,10 @@
 
 ;;was gonna pick the post based on some list / index
 ;;but this is not possible since i need to compile everything
-(define (go-to-post html-ref text)
-      (ref :url (string-append "posts/" html-ref) :text text)
+(define (go-to-post html-ref post-text)
+      (ref :url (string-append "posts/" html-ref) :text [,(color :fg [#4c2708] post-text)]) 
 )
+
 
 (document :title [,(color :fg [#4c2708] [Journal])]
 
@@ -61,24 +62,27 @@
                   (subsection :number #f :title [,(go-to-post "this-site.html" [,(color :fg [#4c2708] [06/18/26 | Experience building this site])])]))
       ))
 
-(chapter :class "chapter-title" :title [,(color :fg [#4c2708] [Coding])] :number #f :file #f :ident "coding"
-      ;;(section :number #f (p :class "centered-content" [List of projects that I have finished developping.]))
-            
-      (section  :number #f
-            ;;(section :class "white-bg" :number #f
-                  ;;(subsection :number #f :title [,(go-to-post "this-site.html" [,(color :fg [#4c2708] [06/18/26 | Experience building this site])])]))
+(chapter :class "chapter-title" :title [,(color :fg [#4c2708] [Coding])] :number #f :file #f :ident "coding"    
+      (section :number #f
 
             (section :class "white-bg" :number #f
-                  (subsection :number #f :title [,(go-to-post "compiling.html" [,(color :fg [#4c2708] [09/05/26 | Compiling all .skb files at once])])]))
+                  (subsection :number #f :title [,(go-to-post "compiling.html" "09/05/26 | Compiling all .skb files at once")]))
 
             (section :class "white-bg" :number #f
-                  (subsection :number #f :title [,(go-to-post "js-att2.html" [,(color :fg [#4c2708] [08/07/26 | Attempting to render JS again])])]))
+                  (subsection :number #f :title [,(go-to-post "js-att2.html" "08/07/26 | Attempting to render JS again")]))
 
             (section :class "white-bg" :number #f
-                  (subsection :number #f :title [,(go-to-post "js-attempt.html" [,(color :fg [#4c2708] [07/29/26 | Attempting to render JS using only this framework])])]))
+                  (subsection :number #f :title [,(go-to-post "js-attempt.html" "07/29/26 | Attempting to render JS using only this framework")]))
 
             (section :class "white-bg" :number #f
-                  (subsection :number #f :title [,(go-to-post "contribution.html" [,(color :fg [#4c2708] [07/18/26 | Contributing to this framework])])]))
+                  (subsection :number #f :title [,(go-to-post "contribution.html" "07/18/26 | Contributing to this framework")]))
+      ))
+
+(chapter :class "chapter-title" :title [,(color :fg [#4c2708] [Mondane])] :number #f :file #f :ident "mondane"
+    
+      (section :number #f
+            (section :class "white-bg" :number #f
+                  (subsection :number #f :title [,(go-to-post "longhair.html" "09/17/26 | Having long hair")]))
       ))
 
       (p :class "hide-text" [a])

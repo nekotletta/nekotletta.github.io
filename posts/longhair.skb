@@ -1,0 +1,64 @@
+(use-modules (skribilo engine)
+             (skribilo source lisp))
+
+;;override html
+(let ((html (find-engine 'html)))
+      (if (engine? html)
+            (begin
+                  (engine-custom-set! html 'html-navtabs-produce-css? #f)
+                  (engine-custom-set! html 'head "<meta name='viewport' content='width=device-width, initial-scale=1.0'>")
+                  ;;override css
+                  (engine-custom-set! html 'css "../styles.css"))))
+
+(document :no-tabs #t
+
+:html-title [Having long hair]
+(section :class "inverted-img-n" :text [aaa] :number #f)
+(section :class "journal-note" :number #f 
+
+;;(section :number #f (p :class "invisible" [a]))
+
+(section :number #f :class "note-area"
+(subsubsection :class "invisible but-p-container note-button" :title "" :number #f :file #f :ident "go-back"
+      (p :class "goback-n" [,(ref :url "../journal-main.html" :text [,(color :fg [white] [To Journal])])]))
+
+(chapter :title [,(color :fg [black] [Having long hair])] :number #f :file #f :ident "finished"
+            
+      (section :number #f :class "note-text"
+
+            (p :class "align-date" [September 17th, 2026])
+
+            (p :class "hide-text" [a])
+            (p :class "hide-text" [a])
+
+            (p [Having long hair isn't for the weak. Do I like having long hair? Absolutely, I love the way it looks.
+            Have I ever considered cutting it off? Yes, the thought has crossed through my mind, i just can't commit to it.])
+
+            (subsection :number #f :title [Pros]
+                (p [,(itemize (item [,(bold [Braids ,(it [(three strand, not box)])]) - this was the main reason why I wanted to grow 
+                my hair out. I ,(it [really]) commited to groing my hair after coming across the character 
+                ,(ref :url "https://arcane.fandom.com/wiki/Jinx/Gallery" :text "Jinx") in 
+                ,(ref :url "https://www.netflix.com/title/81435684" :text "Arcane").])
+                            (item [,(bold [Noticeable]) - it is pretty unusal to see someone with very long hair around, so this is
+                the first thing people will notice or point out. I don't mind.])
+                            (item [,(bold [Hair styling]) - having long hair allows me to both style it or not style it at all. Most
+                of the time my hair is unstyled, as is (perks of having wavy hair); however, if I'm bored enough I can mess
+                around with my hair. I can also switch between short (hair clip) and long hair at will, which is goated imo.]))]))
+
+            (subsection :number #f :title [Cons]
+                (p [,(itemize (item [,(bold [Maintnance]) - yes, this is the worst part. Because my hair isn't straight, this means
+                that my hair will just get tangled or even matted if I don't brush it (almost) every day.])
+                            (item [,(bold [Detangling]) - following along with the first point, detangling hair is a huge issue overall.
+                Not only can I only do this with my hair wet, but it takes a while, so it can be tiring. Not only that, but detangling
+                is also a breeding ground for hair messes in the shower, which are never pleasant.])
+                            (item [,(bold [Wind and hot weather]) - I think these are both self explanatory.]))]))
+
+            (subsection :number #f :title [Hair length for reference] 
+                  (p [Literally a 30in (or 76cm) scroll. This is the length I have to deal with btw.])
+                  (p [P.S. an inch is 96 pixels (or 37.8px per cm), allegedly.])
+                  
+                  (p :class "test" [aaa]))
+
+            (p :class "hide-text" [a])))))
+
+(section :class "sidelines-n" :text [aaa] :number #f))
